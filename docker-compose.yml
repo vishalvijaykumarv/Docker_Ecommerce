@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    container_name: app_node
+    build: 
+      context: app
+    ports:
+      - 3000:3000
+    volumes:
+      - $PWD/app_data/product-images:/app/public/product-images
+    links:
+      - db
+    environment:
+      MONGO_URI: mongodb://db:27017/shopping
+
+  db:
+    container_name: app_db
+    build:
+      context: mongo_db
+    ports:
+      - 27017:27017
+    volumes:
+      - $PWD/db_data:/data/db
